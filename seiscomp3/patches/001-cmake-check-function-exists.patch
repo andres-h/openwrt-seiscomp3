@@ -1,8 +1,0 @@
---- a/src/seedlink/CMakeLists.txt
-+++ b/src/seedlink/CMakeLists.txt
-@@ -1,3 +1,5 @@
- SC_BEGIN_PACKAGE(SEEDLINK)
- 
-+INCLUDE(CheckFunctionExists)
-+
- SUBDIRS(libs apps plugins templates)
