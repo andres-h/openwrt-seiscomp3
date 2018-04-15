@@ -6,7 +6,6 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=cube-plugin-2016-343.01-src.tar.gz
 PKG_SOURCE_URL:=https://geofon.gfz-potsdam.de/software/cube/
-PKG_SOURCE_DIR:=cube
 PKG_HASH:=91fbce39ebca8005216c6efd65784eb041b7a8738aee8817f9a8d638cf6d130a
 
 include $(INCLUDE_DIR)/package.mk
@@ -41,7 +40,7 @@ endef
 define Build/Prepare
 	$(call Build/Prepare/Default)
 	$(CP) $(STAGING_DIR)/../host/include/FlexLexer.h $(PKG_BUILD_DIR)/3rd-party/slutils/
-	for lib in bind config filesystem smart_ptr thread; do curl -Ls "https://github.com/boostorg/$$$$lib/tarball/master" | tar --strip-components=2 --wildcards --directory $(PKG_BUILD_DIR)/lib/gempa/caps -xzf - "*/include/boost"; done
+	for lib in assert bind chrono config container_hash core date_time detail filesystem function integer move mpl numeric_conversion predef preprocessor ratio smart_ptr static_assert system thread throw_exception type_index type_traits utility; do curl -Ls "https://github.com/boostorg/$$$$lib/tarball/boost-1.67.0" | tar --strip-components=2 --wildcards -C $(PKG_BUILD_DIR) -xzf - "*/include/boost"; done
 endef
 
 define Build/Install
