@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=cube
 #PKG_VERSION:=2017.306
-PKG_RELEASE:=1
+PKG_RELEASE:=2018.106
 
 PKG_SOURCE:=cube-plugin-2016-343.01-src.tar.gz
 PKG_SOURCE_URL:=https://geofon.gfz-potsdam.de/software/cube/
@@ -16,10 +16,10 @@ define Package/cubeplugin3
   CATEGORY:=SeisComP 3
   TITLE:=Cube plugin for SC3
   URL:=https://www.seiscomp3.org
-  DEPENDS:=+seiscomp3
+  DEPENDS:=+libstdcpp
 endef
 
-define Package/cubeplugin/description
+define Package/cubeplugin3/description
   SeisComP is a seismological software for data acquisition, processing,
   distribution and interactive analysis. This package contains the cube
   plugin.
@@ -30,10 +30,10 @@ define Package/cubeplugin2
   CATEGORY:=SeisComP 3
   TITLE:=Cube plugin for SC2.5
   URL:=https://www.seiscomp3.org
-  DEPENDS:=+seiscomp2
+  DEPENDS:=+libstdcpp
 endef
 
-define Package/cubeplugin/description
+define Package/cubeplugin2/description
 $(call Package/cubeplugin3/description)
 endef
 
@@ -53,7 +53,7 @@ endef
 
 define Package/cubeplugin2/install
 	$(INSTALL_DIR) $(1)/root/seiscomp/acquisition/bin
-	$(CP) $(PKG_BUILD_DIR)/cube_plugin $(1)/root/seiscomp/acquisition/bin
+	$(CP) $(PKG_BUILD_DIR)/cube_plugin $(1)/root/seiscomp/acquisition/bin/
 endef
 
 $(eval $(call BuildPackage,cubeplugin3))
