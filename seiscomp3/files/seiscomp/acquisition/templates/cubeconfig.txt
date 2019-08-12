@@ -1,0 +1,67 @@
+*********************************************************************
+*                                                                   *
+*        Configuration File for the 1 & 3 Channel DSS-Cubes         *
+*                                                                   *
+*                          Software V0.11T                          *
+*********************************************************************
+* Syntax:                                                           *
+*  - Lines beginning with a star '*' are comments (and are ignored) *
+*  - Empty lines are not allowed                                    *
+*  - Parameter keywords are of six capitalized characters,          *
+*    directly followed by an equal sign                             *
+*  - The parameter value starts at column #8                        *
+*  - Line length is limited to 70 characters                        *
+*********************************************************************
+****** !!! Parameters for 3 channel Cubes only !!!             ******
+*********************************************************************
+*
+** Active Channels      1 = ch1  // 2 = ch1 & ch2  // 3 = ch1 to ch3
+CH_NUM=3
+*
+** Amplifier Gain       1, 2, 4, 8, 16, 32 or 64
+P_AMPL=1
+*
+** AD Converter Mode    0 = Low power // 1 = High resolution
+C_MODE=0
+*
+** Amplifier Chopping   0 = off // 1 = on
+A_CHOP=1
+*
+*********************************************************************
+*****   General parameters for 1 and 3 channel Cubes            *****
+*********************************************************************
+*
+** Project Name         Project name of max. 20 characters
+E_NAME=MENZ
+*
+** Sample Rate          50, 100, 200, 400, (800@1ch) sps
+S_RATE=100
+*
+** Digital High Pass    0 = off // 1 = on
+A_FILT=0
+*
+** FIR Filter           0 = Linear phase // 1 = Minimum phase
+A_PHAS=0
+*
+** TimeBase Correction  0 = off // 1 = PLL // 2 = DIFF
+PLL_XO=0
+*
+** Geographic position lat, lon, alt; to speed up satellite search
+GPS_PO=>SIP+52+013+0000
+*
+** GPS Mode             0 = cycled // 1 = continuously
+GPS_ON=1
+*
+** GPS & Flush Interval 3 to 59 minutes
+*  (GPS interval only in cycled mode)  
+F_TIME=30
+*
+*********************************************************************
+*****   Parameters relevant for GPS cycled mode only            *****
+*********************************************************************
+** GPS OFF after        0 = 'GPS_TI' // 1 = 60 GPS fixes max.'GPS_TI'
+GPS_OF=0
+*
+** GPS ON Time          3 to 55 minutes
+GPS_TI=5
+*

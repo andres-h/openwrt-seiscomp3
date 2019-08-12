@@ -1,0 +1,5 @@
+SOURCE_DESC="Cube digitizer (USB)"
+SOURCE_ATTR="serial,instance_per_station"
+SOURCE_MSG=""
+COMPORT="/dev/ttyUSB0"
+BAUDRATE="115200"

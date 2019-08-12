@@ -658,6 +658,7 @@ _write_conf() {
     OutputFile $(GetTemplate streams.xml) > config/streams.xml
     OutputFile $(GetTemplate scream2sl.map) > config/scream2sl.map
     OutputFile $(GetTemplate win2sl.map) > config/win2sl.map
+    OutputFile $(GetTemplate cubeconfig.txt) > config/cubeconfig.txt
     #OutputFile $(GetTemplate trigger_ext.py.tpl) > python/trigger_ext.py
     OutputFile $(GetTemplate crontab.tpl) > operator/crontab
 
