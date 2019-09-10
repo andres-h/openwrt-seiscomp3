@@ -1,0 +1,73 @@
+--- a/src/seedlink/apps/seedlink/config/seedlink.cfg
++++ b/src/seedlink/apps/seedlink/config/seedlink.cfg
+@@ -7,7 +7,7 @@ network = XX
+ port = 18000
+ 
+ # Path to the base directory of SeedLink data files (disk buffer).
+-filebase = @ROOTDIR@/var/lib/seedlink/buffer
++filebase = /root/seiscomp3/var/lib/seedlink/buffer
+ 
+ # List of trusted addresses.
+ trusted = 127.0.0.0/8
+--- a/src/seedlink/apps/seedlink/iosystem.cc
++++ b/src/seedlink/apps/seedlink/iosystem.cc
+@@ -2483,6 +2483,21 @@ void Connection::disconnect()
+     close(cx.clientfd);
+   }
+     
++//*****************************************************************************
++// NoLog
++//*****************************************************************************
++
++class NoLog
++  {
++  public:
++    enum { msglen = 200 };
++
++    int operator()(int priority, const string &msg)
++      {
++        return msg.length();
++      }
++  };
++
+ //*****************************************************************************
+ // ConnectionManagerImpl
+ //*****************************************************************************
+@@ -2680,8 +2695,12 @@ void ConnectionManagerImpl::client_connect()
+           }
+       }
+     
+-    logs(LOG_NOTICE) << string(host) << ":" << port <<
+-      " : opening connection" << endl;
++    Stream logs = make_stream(NoLog());
++
++    if(string(host) != "127.0.0.1")
++        logs = CPPStreams::logs.stream(string(host) + ":" + to_string(port) + " : ");
++
++    logs(LOG_NOTICE) << "opening connection" << endl;
+     
+     int info_level;
+     bool window_extraction;
+@@ -2703,9 +2722,7 @@ void ConnectionManagerImpl::client_connect()
+     // check for default_station == NULL (no stations registered)...
+     rc_ptr<Connection> conn = new Connection(ipaddr, host, port,
+       default_station, default_network_id, rlog, info_level,
+-      window_extraction, websocket, monitor, stations,
+-      CPPStreams::logs.stream(string(host) + ":" + to_string(port) + " : "),
+-      clientfd);
++      window_extraction, websocket, monitor, stations, logs, clientfd);
+ 
+     connections.push_back(conn);
+     fds.set_read(clientfd);
+--- a/src/system/libs/python/seiscomp3/Kernel.py
++++ b/src/system/libs/python/seiscomp3/Kernel.py
+@@ -186,7 +186,8 @@ class Environment(seiscomp3.Config.Config):
+         return module
+ 
+     def start(self, module, binary, params, nohup=False):
+-        cmd = binary + " " + params + " >" + self.logFile(module) + " 2>&1"
++        #cmd = binary + " " + params + " >" + self.logFile(module) + " 2>&1"
++        cmd = "bash -c '" + binary + " " + params + " > >(exec logger -t " + module + " -p local0.info) 2>&1' >/dev/null 2>&1"
+         if nohup:
+             cmd = "nohup " + cmd + " &"
+         return os.system(cmd)

@@ -7,23 +7,23 @@
  CHECK_FUNCTION_EXISTS(cfmakeraw HAVE_CFMAKERAW)
  IF(HAVE_CFMAKERAW)
          MESSAGE(STATUS "Found function cfmakeraw")
-@@ -13,7 +10,6 @@ SET(SERIALPLUGIN_SOURCES
- 	linux2300.c
+@@ -14,7 +11,6 @@ SET(SERIALPLUGIN_SOURCES
+ 	proto_dr24.cc
  	proto_edata.cc
  	proto_edata2.cc
 -	proto_guralp2.cc
- 	proto_dr24.cc
- 	proto_prema.cc
  	proto_hrd24.cc
-@@ -25,7 +21,6 @@ SET(SERIALPLUGIN_SOURCES
+ 	proto_mws.cc
+ 	proto_prema.cc
+@@ -26,7 +22,6 @@ SET(SERIALPLUGIN_SOURCES
  
  INCLUDE_DIRECTORIES(../../libs/plugin)
- INCLUDE_DIRECTORIES(../../libs/3rd-party/qlib2)
+ INCLUDE_DIRECTORIES(../../libs/slutils)
 -INCLUDE_DIRECTORIES(../libgcf2-2.3.2/src)
  
  SET(CONFIG_FILE ${SC3_PACKAGE_INSTALL_PREFIX}/acquisition/config/plugins.ini)
  
-@@ -36,28 +31,8 @@ ADD_DEFINITIONS(${OPTIONS} ${WSOPTIONS})
+@@ -37,28 +32,8 @@ ADD_DEFINITIONS(${OPTIONS} ${WSOPTIONS})
  
  ADD_EXECUTABLE(serial_plugin ${SERIALPLUGIN_SOURCES})
  
@@ -49,6 +49,6 @@
  TARGET_LINK_LIBRARIES(
  	serial_plugin
 -		${GCF_DIR}/src/libgcf2.a
- 		qlib2
  		slplugin
  		slutils
+ )
